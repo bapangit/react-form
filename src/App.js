@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Form from "./Components/Form";
+import { Nummber, Text } from "./Components/Form/Field";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <ReactForm />;
 }
 
 export default App;
+
+const ReactForm = () => {
+  return (
+    <Form
+      initialValues={{ name: "", age: 10 }}
+      onSubmit={(val) => {
+        console.log("formValues", val);
+      }}
+    >
+      <div style={{ display: "flex" }}>
+        <Text name="name" title="Name" required />
+        <Nummber name="age" title="Age" required />
+      </div>
+      <button type="submit">Submit</button>
+    </Form>
+  );
+};
