@@ -16,8 +16,14 @@ const ReactForm = () => {
       }}
     >
       <div style={{ display: "flex" }}>
-        <Text name="name" title="Name" required />
-        <Nummber name="age" title="Age" required />
+        <Text
+          name="name"
+          title="Name"
+          allow="float"
+          minLength={5}
+          maxLength={10}
+        />
+        <Nummber name="age" title="Age" allow="float" required />
       </div>
       <button type="submit">Submit</button>
     </Form>
