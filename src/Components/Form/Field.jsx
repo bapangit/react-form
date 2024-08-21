@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { Field as FormikField, ErrorMessage } from "formik";
+import Select from "react-select";
 
 /* FIELD */
-function Field({ name, title, component, required, getTypeError }) {
+function Field({ name, title, component, required, getTypeError, ...rest }) {
   const validate = (value) => {
     let error;
-    if (required && !value) {
-      error = "Required !";
+    if (value) {
+      error = getTypeError(value);
+    } else {
+      if (required) {
+        error = "Required !";
+      }
     }
-    return error || getTypeError(value);
+
+    return error;
   };
   return (
     <div className="entire-field">
@@ -21,7 +27,7 @@ function Field({ name, title, component, required, getTypeError }) {
       <div>
         <FormikField validate={validate} name={name} component={component} />
 
-        <div style={{ height: "15px", marginBottom: "4px" }}>
+        <div style={{ height: "15px" }}>
           <ErrorMessage name={name}>
             {(msg) => {
               return (
@@ -75,14 +81,20 @@ const Text = ({ style, className, allow, maxLength, minLength, ...props }) => {
 const Nummber = ({ style, className, allow, maxValue, minValue, ...props }) => {
   const numberField = ({ field, form }) => {
     return (
-      <input type="number" style={style} className={className} {...field} />
+      <input
+        type="number"
+        style={style}
+        className={className}
+        value={Number(field.value)}
+        {...field}
+      />
     );
   };
 
   const getTypeError = (value) => {
     let error;
     if (allow === "int" && !/^([0-9]+)$/i.test(value)) {
-      error = "Enter a integer value.";
+      error = "Enter an integer value.";
     } else if (allow === "float" && !/^([0-9]+(\.)[0-9]+)$/i.test(value)) {
       error = "Enter a float value.";
     } else if (maxValue && value > maxValue) {
@@ -98,4 +110,35 @@ const Nummber = ({ style, className, allow, maxValue, minValue, ...props }) => {
   );
 };
 
-export { Text, Nummber };
+const SelectOption = ({
+  options,
+  style,
+  className,
+  allow,
+  maxLength,
+  minLength,
+  ...props
+}) => {
+  const SelectField = ({ field, form }) => {
+    return (
+      <Select
+        defaultValue={field.value}
+        value={field.value}
+        onChange={(val) => {
+          form.setFieldValue(field.name, val);
+        }}
+        name={field.name}
+        options={options}
+      />
+    );
+  };
+
+  const getTypeError = (value) => {
+    return "";
+  };
+  return (
+    <Field component={SelectField} getTypeError={getTypeError} {...props} />
+  );
+};
+
+export { Text, Nummber, SelectOption };

@@ -11,8 +11,9 @@ input {
   margin-top: 1px;
 }
 .entire-field {
-  margin: 4px;
 }
 .field-title {
   font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
 }
