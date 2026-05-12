@@ -41,7 +41,7 @@ const themes = [
 
 function App() {
   const [theme, setTheme] = useState("teal");
-  const [columns, setColumns] = useState(2);
+  const [columns, setColumns] = useState(3);
 
   return (
     <main className="app-page">
@@ -72,6 +72,8 @@ function App() {
             <option value={1}>1 Column</option>
             <option value={2}>2 Columns</option>
             <option value={3}>3 Columns</option>
+            <option value={4}>4 Columns</option>
+            <option value={5}>5 Columns</option>
           </select>
         </label>
       </div>
@@ -128,6 +130,7 @@ function App() {
           />
           <SelectOption name="role" title="Role" options={options} required />
           <MultiSelectOption
+            colSpan={2}
             name="skills"
             title="Skills"
             options={skillOptions}
@@ -135,6 +138,7 @@ function App() {
           />
           <DateField name="dateOfBirth" title="Date of Birth" required />
           <TextArea
+            colSpan={3}
             name="address"
             title="Address"
             minLength={10}

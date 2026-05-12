@@ -4,14 +4,14 @@ import "./form-style.css";
 
 const Form = (props) => {
   const { children, columns = 2, theme = "teal", ...formikProps } = props;
-  const formColumns = Math.min(Math.max(Number(columns) || 1, 1), 3);
+  const formColumns = Math.min(Math.max(Number(columns) || 1, 1), 5);
 
   return (
     <Formik {...formikProps}>
       {() => {
         return (
           <FormikForm
-            className={`form-shell form-theme-${theme}`}
+            className={`form-shell form-theme-${theme} form-columns-${formColumns}`}
             style={{ "--form-columns": formColumns }}
           >
             {children}

@@ -3,7 +3,16 @@ import { Field as FormikField, ErrorMessage } from "formik";
 import Select from "react-select";
 
 /* FIELD */
-function Field({ name, title, component, required, getTypeError, ...rest }) {
+function Field({
+  name,
+  title,
+  component,
+  required,
+  getTypeError,
+  colSpan = 1,
+  ...rest
+}) {
+  const fieldColSpan = Math.min(Math.max(Number(colSpan) || 1, 1), 5);
   const validate = (value) => {
     let error;
     const isEmpty =
@@ -23,7 +32,7 @@ function Field({ name, title, component, required, getTypeError, ...rest }) {
     return error;
   };
   return (
-    <div className="entire-field">
+    <div className={`entire-field field-span-${fieldColSpan}`}>
       <span
         className="field-title"
         style={title ? {} : { textTransform: "capitalize" }}
